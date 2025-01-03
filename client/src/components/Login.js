@@ -1,23 +1,27 @@
 import React, { useState } from "react";
-import { Box, TextField, Button, Typography, Alert } from "@mui/material";
+import { Box, TextField, Button, Typography, Alert,CircularProgress  } from "@mui/material";
 import { fetchLogin } from "../services/fetchers";
 
 const Login = ({ onLoginSuccess }) => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-
+  const [loading, setLoading] = useState(false);
+  
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const { success, error: loginError } = await fetchLogin(name, password);
     if (success) {
       onLoginSuccess(name);
     } else {
       setError(loginError);
     }
+    setLoading(false);
   };
 
   return (
+
     <Box
       component="form"
       onSubmit={handleLogin}
@@ -39,13 +43,13 @@ const Login = ({ onLoginSuccess }) => {
         variant="outlined"
         required
       />
-      <Button
-        type="submit"
-        variant="contained"
-        color="primary"
-      >
-        Login
-      </Button>
+      {loading ? (
+        <CircularProgress />
+      ) : (
+        <Button type="submit" variant="contained" color="primary">
+          Login
+        </Button>
+      )}
     </Box>
   );
 };
