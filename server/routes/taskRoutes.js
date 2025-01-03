@@ -6,8 +6,8 @@ const router = express.Router();
 // Create a new task
 router.post("/tasks", async (req, res) => {
   try {
-    const { title, userId } = req.body; 
-    const task = new Task({ title, user: userId }); 
+    const { title, username } = req.body; 
+    const task = new Task({ title, user: username }); 
     await task.save();
     res.status(201).json(task);
   } catch (error) {
@@ -18,8 +18,8 @@ router.post("/tasks", async (req, res) => {
 // Get all tasks for user
 router.get("/tasks", async (req, res) => {
   try {
-    const { userId } = req.query;
-    const filter = userId ? { user: userId } : {};
+    const { username } = req.query;
+    const filter = username ? { user: username } : {}; 
     const tasks = await Task.find(filter);
     res.status(200).json(tasks);
   } catch (error) {
