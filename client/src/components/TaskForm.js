@@ -11,6 +11,9 @@ const TaskForm = ({ onAddTask }) => {
       if (success) {
         setNewTask("");
       }
+      else {
+        alert("Failed to add task, please try again");
+      }
     }
   };
 

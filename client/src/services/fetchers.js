@@ -34,9 +34,7 @@ const fetchTasks = async (username) => {
 };
 
 const addTask = async (title, username) => {
-  try {
-    console.log(title,username);
-    
+  try {    
     const response = await api.post("/tasks", { title, username });
     return { success: true, data: response.data };
   } catch (error) {
