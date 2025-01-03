@@ -3,6 +3,8 @@
 This project is a **full-stack to-do list application** built using **React** for the frontend and **Node.js/Express** for the backend, with a **MongoDB Atlas** database and deployment to **AWS Lambda + API Gateway** and **S3** for hosting.
 
 ---
+### **Live Site**  
+[Click here to view the live site](http://manu-todo-client.s3-website.eu-central-1.amazonaws.com/)
 
 ## **Project Overview**
 
