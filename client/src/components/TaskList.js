@@ -2,12 +2,15 @@ import React, { useState, useEffect } from "react";
 import { fetchTasks, addTask } from "../services/fetchers";
 import Task from "./Task";
 import TaskForm from "./TaskForm";
-import { Box, Typography, List, Pagination, Button } from "@mui/material";
+import { Box, Typography, List, Pagination,Alert, Button,CircularProgress } from "@mui/material";
 
 const TaskList = ({ username }) => {
   const [tasks, setTasks] = useState([]);
   const [hideCompleted, setHideCompleted] = useState(false); 
   const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  
   const tasksPerPage = 5;
 
   useEffect(() => {
@@ -16,8 +19,12 @@ const TaskList = ({ username }) => {
       if (success) {
         setTasks(data);
       }
+      else {
+        setError("Failed to fetch tasks, please try again");
+      }
+      setLoading(false);
     };
-
+    setLoading(true);
     if (username) getTasks();
   }, [username]);
 
@@ -84,6 +91,11 @@ const TaskList = ({ username }) => {
         width: "100%",
       }}
     >
+      {loading ? (
+        <CircularProgress />
+      ) : (
+        <>
+      {error && <Alert severity="error">{error}</Alert>}
       <TaskForm onAddTask={handleAddTask} />
       <Button
         variant="outlined"
@@ -103,7 +115,7 @@ const TaskList = ({ username }) => {
             />
           ))
         ) : (
-          <Typography variant="body1">No tasks available. Add a new task!</Typography>
+          <Typography variant="body1">{error ? "" : "No tasks available. Add a new task!"}</Typography>
         )}
       </List>
       {visibleTasks.length > tasksPerPage && (
@@ -113,6 +125,8 @@ const TaskList = ({ username }) => {
           onChange={handlePageChange}
           color="primary"
         />
+      )}
+      </>
       )}
     </Box>
   );
