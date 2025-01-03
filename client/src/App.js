@@ -5,7 +5,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { Box, Button } from "@mui/material";
 
 const App = () => {
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
 
