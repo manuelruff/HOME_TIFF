@@ -62,7 +62,7 @@ const TaskList = ({ username }) => {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        gap: 2,
+        gap: 1,
         width: "100%",
       }}
     >
@@ -82,7 +82,6 @@ const TaskList = ({ username }) => {
           page={currentPage}
           onChange={handlePageChange}
           color="primary"
-          sx={{ marginTop: 2 }}
         />
       )}
     </Box>

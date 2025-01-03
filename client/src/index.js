@@ -13,7 +13,7 @@ root.render(
     <Routes>
       <Route path="/" element={<App />}>
         <Route index element={<Home/>} />
-        <Route path="/tasks" element={<TasksPage />} />
+        <Route path="/tasks" element={<TasksPage/>} />
       </Route>
     </Routes>
   </HashRouter>

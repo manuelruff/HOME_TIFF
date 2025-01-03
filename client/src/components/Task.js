@@ -52,15 +52,11 @@ const Task = ({ task, onTaskDelete }) => {
         <>
           <Typography
             variant="h6"
-            sx={{
-              fontSize: "1rem",
-              marginBottom: 1,
-              wordWrap: "break-word",
-            }}
+            sx={{ wordWrap: "break-word" }}
           >
             {newTitle}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2">
             Completed:
             <Checkbox
               checked={isCompleted}
@@ -73,7 +69,6 @@ const Task = ({ task, onTaskDelete }) => {
               variant="contained"
               color="primary"
               onClick={handleEdit}
-              sx={{ padding: 1 }}
             >
               Edit
             </Button>
@@ -81,7 +76,6 @@ const Task = ({ task, onTaskDelete }) => {
               variant="contained"
               color="error"
               onClick={handleDelete}
-              sx={{ padding: 1 }}
             >
               Delete
             </Button>
@@ -108,7 +102,6 @@ const Task = ({ task, onTaskDelete }) => {
               variant="contained"
               color="success"
               onClick={handleUpdate}
-              sx={{ padding: 1 }}
             >
               Save
             </Button>
@@ -116,7 +109,6 @@ const Task = ({ task, onTaskDelete }) => {
               variant="outlined"
               color="secondary"
               onClick={() => setIsEditing(false)}
-              sx={{ padding: 1 }}
             >
               Cancel
             </Button>

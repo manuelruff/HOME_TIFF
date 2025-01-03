@@ -38,12 +38,7 @@ const App = () => {
           alignItems: "center",
         }}
       >
-        <Box
-          sx={{
-            display: "flex",
-            gap: 2, 
-          }}
-        >
+        <Box sx={{display: "flex",gap: 2, }}>
           <Button variant="outlined" onClick={toggleTheme}>
             {darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
           </Button>
@@ -58,7 +53,6 @@ const App = () => {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            gap: 2,
             width: "50%",
             p: 2,
           }}

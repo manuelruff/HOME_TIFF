@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, TextField, Button, Paper } from "@mui/material";
+import { Box, TextField, Button } from "@mui/material";
 
 const TaskForm = ({ onAddTask }) => {
   const [newTask, setNewTask] = useState("");
@@ -15,39 +15,30 @@ const TaskForm = ({ onAddTask }) => {
   };
 
   return (
-    <Paper
+    <Box
+      component="form"
+      onSubmit={handleSubmit}
       sx={{
-        padding: 4,
-        textAlign: "center",
-        boxShadow: 3,
-        borderRadius: 2,
+        display: "flex",
         width: "100%",
+        flexDirection: "column",
+        gap: 1,
+        justifyContent: "center",
       }}
     >
-      <Box
-        component="form"
-        onSubmit={handleSubmit}
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          gap: 2,
-          justifyContent: "center",
-        }}
-      >
-        <TextField
-          fullWidth
-          label="New Task"
-          value={newTask}
-          onChange={(e) => setNewTask(e.target.value)}
-          variant="outlined"
-          multiline
-          minRows={2} 
-        />
-        <Button type="submit" variant="contained" color="primary">
-          Add Task
-        </Button>
-      </Box>
-    </Paper>
+      <TextField
+        fullWidth
+        label="New Task"
+        value={newTask}
+        onChange={(e) => setNewTask(e.target.value)}
+        variant="outlined"
+        multiline
+        minRows={2} 
+      />
+      <Button type="submit" variant="contained" color="primary">
+        Add Task
+      </Button>
+    </Box>
   );
 };
 
