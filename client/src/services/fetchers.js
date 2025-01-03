@@ -12,6 +12,18 @@ const fetchLogin = async (name, password) => {
   }
 };
 
+const fetchRegister = async (name, password) => {
+  try {
+    const response = await api.post("/users", { name, password });
+    return { success: true, message: response.data.message };
+  } catch (error) {
+    return {
+      success: false,
+      error: error.response?.data?.error || "Registration failed",
+    };
+  }
+};
+
 const fetchTasks = async (username) => {
   try {
     const response = await api.get(`/tasks?username=${username}`);
@@ -50,5 +62,5 @@ const deleteTask = async (taskId) => {
   }
 };
 
-export {api,fetchLogin,fetchTasks,addTask,updateTask,deleteTask};
+export {api,fetchLogin,fetchRegister,fetchTasks,addTask,updateTask,deleteTask};
 

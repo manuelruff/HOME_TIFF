@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { fetchTasks, addTask } from "../services/fetchers";
 import Task from "./Task";
+import TaskForm from "./TaskForm";
+import { Box, Typography, List, Pagination } from "@mui/material";
 
 const TaskList = ({ username }) => {
   const [tasks, setTasks] = useState([]);
-  const [newTask, setNewTask] = useState("");
+  const [currentPage, setCurrentPage] = useState(1); 
+  const tasksPerPage = 5;
 
   useEffect(() => {
     const getTasks = async () => {
@@ -17,32 +20,59 @@ const TaskList = ({ username }) => {
     if (username) getTasks();
   }, [username]);
 
-  const handleAddTask = async (e) => {
-    e.preventDefault();
-    const { success, data } = await addTask(newTask, username);
+  const handleAddTask = async (taskTitle) => {
+    const { success, data } = await addTask(taskTitle, username);
     if (success) {
-      setTasks([...tasks, data]);
-      setNewTask("");
+      setTasks((prevTasks) => [...prevTasks, data]);
     }
+    return success;
+  };
+
+  const handleTaskDelete = (taskId) => {
+    setTasks((prevTasks) => prevTasks.filter((task) => task._id !== taskId));
+  };
+
+  const totalPages = Math.ceil(tasks.length / tasksPerPage);
+
+  const paginatedTasks = tasks.slice(
+    (currentPage - 1) * tasksPerPage,
+    currentPage * tasksPerPage
+  );
+
+  const handlePageChange = (event, value) => {
+    setCurrentPage(value); 
   };
 
   return (
-    <div>
-      <form onSubmit={handleAddTask}>
-        <input
-          type="text"
-          value={newTask}
-          onChange={(e) => setNewTask(e.target.value)}
-          placeholder="New Task"
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        gap: 2,
+        width: "100%",
+      }}
+    >
+      <TaskForm onAddTask={handleAddTask} />
+      <List sx={{ width: "100%" }}>
+        {paginatedTasks.length > 0 ? (
+          paginatedTasks.map((task) => (
+            <Task key={task._id} task={task} onTaskDelete={handleTaskDelete} />
+          ))
+        ) : (
+          <Typography variant="body1">No tasks available. Add a new task!</Typography>
+        )}
+      </List>
+      {tasks.length > tasksPerPage && (
+        <Pagination
+          count={totalPages}
+          page={currentPage}
+          onChange={handlePageChange}
+          color="primary"
+          sx={{ marginTop: 2 }}
         />
-        <button type="submit">Add Task</button>
-      </form>
-      <ul>
-        {tasks.map((task) => (
-          <Task key={task._id} task={task} />
-        ))}
-      </ul>
-    </div>
+      )}
+    </Box>
   );
 };
 
