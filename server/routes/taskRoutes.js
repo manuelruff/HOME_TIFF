@@ -19,8 +19,10 @@ router.post("/tasks", async (req, res) => {
 router.get("/tasks", async (req, res) => {
   try {
     const { username } = req.query;
-    const filter = username ? { user: username } : {}; 
-    const tasks = await Task.find(filter);
+    if (!username) {
+      return res.status(401).json({ error: "Unauthorized: Username is required" });
+    }
+    const tasks = await Task.find({ user: username });
     res.status(200).json(tasks);
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch tasks" });

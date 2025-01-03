@@ -6,6 +6,7 @@ const Task = ({ task, onTaskDelete }) => {
   const [isCompleted, setIsCompleted] = useState(task.completed);
   const [isEditing, setIsEditing] = useState(false);
   const [newTitle, setNewTitle] = useState(task.title);
+  const [previousTitle, setPreviousTitle] = useState(task.title); 
 
   const handleCheckboxToggle = async () => {
     const updatedStatus = !isCompleted;
@@ -15,6 +16,9 @@ const Task = ({ task, onTaskDelete }) => {
     if (success) {
       setIsCompleted(updatedStatus);
     }
+    else {
+      alert("Failed to update task, please try again");
+    }
   };
 
   const handleDelete = async () => {
@@ -22,17 +26,30 @@ const Task = ({ task, onTaskDelete }) => {
     if (success) {
       onTaskDelete(task._id);
     }
+    else {
+      alert("Failed to delete task, please try again");
+    }
   };
 
   const handleEdit = () => {
+    setPreviousTitle(newTitle); 
     setIsEditing(true);
   };
 
   const handleUpdate = async () => {
     const { success } = await updateTask(task._id, { title: newTitle });
     if (success) {
-      setIsEditing(false);
+      setIsEditing(false); 
+    } else {
+      setNewTitle(previousTitle);
+      setIsEditing(false); 
+      alert("Failed to update task, please try again");
     }
+  };
+
+  const handleCancel = () => {
+    setNewTitle(previousTitle);
+    setIsEditing(false); 
   };
 
   return (
@@ -44,16 +61,13 @@ const Task = ({ task, onTaskDelete }) => {
         padding: 2,
         display: "flex",
         flexDirection: "column",
-        bgcolor: "background.paper", 
+        bgcolor: "background.paper",
         marginBottom: 1,
       }}
     >
       {!isEditing ? (
         <>
-          <Typography
-            variant="h6"
-            sx={{ wordWrap: "break-word" }}
-          >
+          <Typography variant="h6" sx={{ wordWrap: "break-word" }}>
             {newTitle}
           </Typography>
           <Typography variant="body2">
@@ -65,18 +79,10 @@ const Task = ({ task, onTaskDelete }) => {
             />
           </Typography>
           <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleEdit}
-            >
+            <Button variant="contained" color="primary" onClick={handleEdit}>
               Edit
             </Button>
-            <Button
-              variant="contained"
-              color="error"
-              onClick={handleDelete}
-            >
+            <Button variant="contained" color="error" onClick={handleDelete}>
               Delete
             </Button>
           </Box>
@@ -98,18 +104,10 @@ const Task = ({ task, onTaskDelete }) => {
             }}
           />
           <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-            <Button
-              variant="contained"
-              color="success"
-              onClick={handleUpdate}
-            >
+            <Button variant="contained" color="success" onClick={handleUpdate}>
               Save
             </Button>
-            <Button
-              variant="outlined"
-              color="secondary"
-              onClick={() => setIsEditing(false)}
-            >
+            <Button variant="outlined" color="secondary" onClick={handleCancel}>
               Cancel
             </Button>
           </Box>
