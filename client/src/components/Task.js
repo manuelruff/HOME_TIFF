@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { updateTask, deleteTask } from "../services/fetchers";
 import { Typography, Checkbox, Button, TextField, Box } from "@mui/material";
 
-const Task = ({ task, onTaskDelete }) => {
+const Task = ({ task, onTaskDelete,onTaskCompletet }) => {
   const [isCompleted, setIsCompleted] = useState(task.completed);
   const [isEditing, setIsEditing] = useState(false);
   const [newTitle, setNewTitle] = useState(task.title);
@@ -15,6 +15,7 @@ const Task = ({ task, onTaskDelete }) => {
     });
     if (success) {
       setIsCompleted(updatedStatus);
+      onTaskCompletet(task._id, updatedStatus);
     }
     else {
       alert("Failed to update task, please try again");

@@ -53,6 +53,7 @@ const App = () => {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            // i want different size of app for different screen sizes
             width:{xs:"90" ,sm: "75%" ,md: "50%"},
             p: 2,
           }}
