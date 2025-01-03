@@ -53,7 +53,7 @@ const App = () => {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            width: "50%",
+            width:{xs:"90" ,sm: "75%" ,md: "50%"},
             p: 2,
           }}
         >
