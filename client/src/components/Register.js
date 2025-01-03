@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, TextField, Button, Typography, Alert } from "@mui/material";
+import { Box, TextField, Button, Typography, Alert,CircularProgress } from "@mui/material";
 import { fetchRegister } from "../services/fetchers";
 
 const Register = ({ onRegisterSuccess }) => {
@@ -7,9 +7,11 @@ const Register = ({ onRegisterSuccess }) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleRegister = async (e) => {
-    e.preventDefault();
+    e.preventDefault();    
+    setLoading(true);
     if (password !== confirmPassword) {
       setError("Passwords do not match");
       return;
@@ -20,6 +22,7 @@ const Register = ({ onRegisterSuccess }) => {
     } else {
       setError(registerError);
     }
+    setLoading(false);
   };
 
   return (
@@ -52,13 +55,17 @@ const Register = ({ onRegisterSuccess }) => {
         variant="outlined"
         required
       />
-      <Button
-        type="submit"
-        variant="contained"
-        color="primary"
-      >
-        Register
-      </Button>
+      {loading ? (
+              <CircularProgress />
+      ) : (
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+        >
+          Register
+        </Button>
+        )}
     </Box>
   );
 };
