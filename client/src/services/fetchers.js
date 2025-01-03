@@ -1,7 +1,7 @@
 import axios from "axios";
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
-  // baseURL: "https://g80xn9zgz4.execute-api.eu-central-1.amazonaws.com/api",
+  // baseURL: process.env.REACT_APP_API_URL,
+  baseURL: "https://g80xn9zgz4.execute-api.eu-central-1.amazonaws.com/api",
 });
 
 const fetchLogin = async (name, password) => {
