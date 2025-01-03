@@ -54,6 +54,7 @@ const TaskList = ({ username }) => {
     });
   };
 
+  // update the task status in the parent component so we know if we need to hide it or not
   const handleTaskCompletionToggle = (taskId, newStatus) => {
     setTasks((prevTasks) =>
       prevTasks.map((task) =>
@@ -68,10 +69,13 @@ const TaskList = ({ username }) => {
     setCurrentPage(1);
   };
 
+  // save list that we wanna show, based on the hideCompleted state
   const visibleTasks = hideCompleted ? tasks.filter((task) => !task.completed) : tasks;
 
+  // calculate the total pages based on the visible tasks
   const totalPages = Math.ceil(visibleTasks.length / tasksPerPage);
 
+  // calculat index of the first and last task to show on the current page
   const paginatedTasks = visibleTasks.slice(
     (currentPage - 1) * tasksPerPage,
     currentPage * tasksPerPage
