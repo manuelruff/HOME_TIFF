@@ -29,9 +29,22 @@ const TaskList = ({ username }) => {
   };
 
   const handleTaskDelete = (taskId) => {
-    setTasks((prevTasks) => prevTasks.filter((task) => task._id !== taskId));
+    setTasks((prevTasks) => {
+      const updatedTasks = prevTasks.filter((task) => task._id !== taskId);
+      
+      const remainingTasksOnPage = updatedTasks.slice(
+        (currentPage - 1) * tasksPerPage,
+        currentPage * tasksPerPage
+      ).length;
+  
+      if (remainingTasksOnPage === 0 && currentPage > 1) {
+        setCurrentPage((prevPage) => prevPage - 1);
+      }
+  
+      return updatedTasks;
+    });
   };
-
+  
   const totalPages = Math.ceil(tasks.length / tasksPerPage);
 
   const paginatedTasks = tasks.slice(
