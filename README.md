@@ -21,6 +21,7 @@ A simple and functional to-do list web application where users can:
 **Clone the repositry:**
    ```bash
    git clone "https://github.com/manuelruff/HOME_TIFF.git"
+   cd HOME_TIFF
    ```
 
 ## **Frontend Setup**
