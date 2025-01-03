@@ -21,7 +21,6 @@ const Login = ({ onLoginSuccess }) => {
   };
 
   return (
-
     <Box
       component="form"
       onSubmit={handleLogin}

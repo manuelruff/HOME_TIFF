@@ -1,20 +1,28 @@
 import React, { useState } from "react";
-import { Box, TextField, Button } from "@mui/material";
+import { Box, TextField, Button,Alert,CircularProgress } from "@mui/material";
 
 const TaskForm = ({ onAddTask }) => {
   const [newTask, setNewTask] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setError("");
     if (newTask.trim()) {
       const success = await onAddTask(newTask);
       if (success) {
         setNewTask("");
       }
       else {
-        alert("Failed to add task, please try again");
+        setError("Failed to add task, please try again.");
       }
     }
+    else {
+      setError("Task cannot be empty.");
+    }
+    setLoading(false);
   };
 
   return (
@@ -29,6 +37,7 @@ const TaskForm = ({ onAddTask }) => {
         justifyContent: "center",
       }}
     >
+      {error && <Alert severity="error">{error}</Alert>}
       <TextField
         fullWidth
         label="New Task"
@@ -38,9 +47,13 @@ const TaskForm = ({ onAddTask }) => {
         multiline
         minRows={2} 
       />
+      {loading ? (
+              <CircularProgress/>
+      ) : (
       <Button type="submit" variant="contained" color="primary">
         Add Task
       </Button>
+      )}
     </Box>
   );
 };

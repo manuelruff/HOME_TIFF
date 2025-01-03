@@ -15,6 +15,7 @@ const Task = ({ task, onTaskDelete,onTaskCompletet }) => {
     });
     if (success) {
       setIsCompleted(updatedStatus);
+      // update state in parent component so he will hide or unhide the task
       onTaskCompletet(task._id, updatedStatus);
     }
     else {
@@ -25,6 +26,7 @@ const Task = ({ task, onTaskDelete,onTaskCompletet }) => {
   const handleDelete = async () => {
     const { success } = await deleteTask(task._id);
     if (success) {
+      // update state in parent component so he will remove from its list
       onTaskDelete(task._id);
     }
     else {
@@ -33,6 +35,7 @@ const Task = ({ task, onTaskDelete,onTaskCompletet }) => {
   };
 
   const handleEdit = () => {
+    // we save the previous title in case the user cancels the edit or we have a pronlem updating the task title
     setPreviousTitle(newTitle); 
     setIsEditing(true);
   };
