@@ -4,6 +4,7 @@ This project is a **full-stack to-do list application** built using **React** fo
 
 ---
 ### **Live Site**  
+(site currently down, you can run locally by creating new mongodb connection)
 [Click here to view the live site](http://manu-todo-client.s3-website.eu-central-1.amazonaws.com/)
 
 ## **Project Overview**
